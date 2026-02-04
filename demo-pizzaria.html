@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Pizzaria Bella Massa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+
+body{background:#121212;color:#f1f1f1}
+
+/* HEADER */
+header{
+  background:#c0392b;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  position:sticky;
+  top:0;
+  z-index:10
+}
+nav a{color:#fff;margin:0 10px;text-decoration:none;font-weight:bold}
+
+/* HERO */
+.hero{
+  background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+  url("https://upload.wikimedia.org/wikipedia/commons/d/d3/Supreme_pizza.jpg");
+  background-size:cover;
+  padding:90px 20px;
+  text-align:center
+}
+
+/* SECTIONS */
+section{padding:50px 20px;text-align:center}
+
+/* CARDS */
+.cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+
+.card{
+  background:#f2e8dc;
+  width:260px;
+  padding:15px;
+  border-radius:12px;
+  transition:.3s;
+  box-shadow:0 0 10px rgba(0,0,0,.3)
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 0 18px rgba(212,175,55,.9)
+}
+
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px
+}
+
+.card h3{color:#000;margin:10px 0 5px}
+.card p{color:#6b4b2a;font-size:14px}
+.card strong{color:#c0392b}
+
+.add-btn{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+  background:#c0392b;
+  color:#fff;
+  cursor:pointer
+}
+
+/* CARRINHO */
+.cart{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#1f1f1f;
+  padding:15px;
+  border-radius:12px;
+  width:260px;
+  box-shadow:0 0 15px rgba(0,0,0,.6);
+  animation:slideUp .4s ease
+}
+
+@keyframes slideUp{
+  from{transform:translateY(50px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.cart h3{text-align:center;margin-bottom:10px}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  font-size:14px
+}
+
+.cart-controls button{
+  background:#c0392b;
+  border:none;
+  color:#fff;
+  padding:2px 8px;
+  margin:0 3px;
+  cursor:pointer;
+  border-radius:4px
+}
+
+.cart-total{
+  margin-top:10px;
+  font-weight:bold;
+  text-align:center
+}
+
+.btn{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  background:#e67e22;
+  border:none;
+  border-radius:6px;
+  color:#fff;
+  cursor:pointer
+}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25d366;
+  color:#fff;
+  font-size:26px;
+  padding:15px;
+  border-radius:50%;
+  text-decoration:none
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🍕 Bella Massa</h1>
+<nav>
+<a href="#cardapio">Cardápio</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>A melhor pizza da cidade</h2>
+<p>Forno à lenha • Massa artesanal • Delivery rápido</p>
+</section>
+
+<section id="cardapio">
+<h2>🍕 Cardápio</h2>
+<div class="cards" id="cards"></div>
+</section>
+
+<div class="cart" id="cart">
+<h3>🛒 Carrinho</h3>
+<div id="cartItems"></div>
+<div class="cart-total">Total: R$ <span id="total">0</span></div>
+<button class="btn" onclick="finalizar()">Finalizar Pedido</button>
+</div>
+
+<a class="whatsapp" href="https://wa.me/5511999999999" target="_blank">💬</a>
+
+<script>
+const pizzasBase=[
+ {nome:"Calabresa",preco:35,img:"https://upload.wikimedia.org/wikipedia/commons/9/91/Pizza-3007395.jpg"},
+ {nome:"Marguerita",preco:32,img:"https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg"},
+ {nome:"4 Queijos",preco:38,img:"https://i.pinimg.com/736x/81/22/f6/8122f6adb48c9b88043347fd83b2b1af.jpg"},
+ {nome:"Pepperoni",preco:39,img:"https://upload.wikimedia.org/wikipedia/commons/d/d1/Pepperoni_pizza.jpg"},
+ {nome:"Portuguesa",preco:37,img:"https://i.pinimg.com/736x/30/61/27/306127b4af380cc89001e5131294310e.jpg"}
+];
+
+// gera 10
+let pizzas=[];
+while(pizzas.length<8){
+ pizzas.push({...pizzasBase[pizzas.length%5]});
+}
+
+const cards=document.getElementById("cards");
+pizzas.forEach(p=>{
+ cards.innerHTML+=`
+ <div class="card">
+  <img src="${p.img}">
+  <h3>${p.nome}</h3>
+  <p>Pizza artesanal</p>
+  <strong>R$ ${p.preco}</strong>
+  <button class="add-btn" onclick="addToCart('${p.nome}',${p.preco})">Adicionar</button>
+ </div>`;
+});
+
+let cart={};
+
+function addToCart(nome,preco){
+ if(!cart[nome]) cart[nome]={qtd:0,preco};
+ cart[nome].qtd++;
+ renderCart();
+}
+
+function removeItem(nome){
+ cart[nome].qtd--;
+ if(cart[nome].qtd<=0) delete cart[nome];
+ renderCart();
+}
+
+function renderCart(){
+ const items=document.getElementById("cartItems");
+ const totalSpan=document.getElementById("total");
+ items.innerHTML="";
+ let total=0;
+
+ for(let item in cart){
+  total+=cart[item].qtd*cart[item].preco;
+  items.innerHTML+=`
+  <div class="cart-item">
+    ${item} (${cart[item].qtd})
+    <div class="cart-controls">
+      <button onclick="addToCart('${item}',${cart[item].preco})">+</button>
+      <button onclick="removeItem('${item}')">-</button>
+    </div>
+  </div>`;
+ }
+ totalSpan.textContent=total;
+}
+
+function finalizar(){
+ if(Object.keys(cart).length===0){
+  alert("Carrinho vazio");
+  return;
+ }
+ let msg="Olá, gostaria de fazer o pedido:%0A";
+ for(let item in cart){
+  msg+=`${item} x${cart[item].qtd}%0A`;
+ }
+ window.open("https://wa.me/5573981663431?text="+msg);
+}
+</script>
+
+</body>
+</html>

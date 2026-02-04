@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Barbearia Prime</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #111, #000);
+}
+
+header h1 {
+  font-size: 48px;
+  color: #d4af37;
+}
+
+header p {
+  color: #ccc;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 15px;
+  margin: 0;
+  color: #fff;
+}
+
+.card p {
+  padding: 0 15px 15px;
+  color: #aaa;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(212,175,55,0.7);
+}
+
+.btn {
+  display: block;
+  text-align: center;
+  background: #d4af37;
+  color: #000;
+  padding: 12px;
+  margin: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #f5d76e;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Barbearia Prime</h1>
+  <p>Estilo • Precisão • Atitude</p>
+</header>
+
+<section>
+  <h2>Nossos Serviços</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a">
+      <h3>Corte Masculino</h3>
+      <p>Corte moderno e alinhado.</p>
+      <a class="btn" href="https://wa.me/5500000000000" target="_blank">Agendar no WhatsApp</a>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8">
+      <h3>Barba Completa</h3>
+      <p>Barba desenhada com navalha.</p>
+      <a class="btn" href="https://wa.me/5500000000000" target="_blank">Agendar no WhatsApp</a>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486">
+      <h3>Corte + Barba</h3>
+      <p>Pacote completo premium.</p>
+      <a class="btn" href="https://wa.me/5500000000000" target="_blank">Agendar no WhatsApp</a>
+    </div>
+
+    <div class="card">
+      <img src="https://i.pinimg.com/736x/28/3d/a0/283da0077b007e45e9bac80ce8ed5034.jpg">
+      <h3>Sobrancelha</h3>
+      <p>Acabamento perfeito.</p>
+      <a class="btn" href="https://wa.me/5573981663431" target="_blank">Agendar no WhatsApp</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 • Projeto para Portfólio
+
+  <p>Landing page moderna com WhatsApp</p>
+</a>
+
+</body>
+</html>
+

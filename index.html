@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Portfólio | Jorge Designer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:#0b0b0b;
+  color:#f2f2f2;
+}
+
+/* HEADER */
+header{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#0b0b0b;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+header h1{ color:#d4af37; }
+
+nav a{
+  margin-left:15px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* HERO */
+.hero{
+  padding:120px 20px;
+  text-align:center;
+  background:
+  linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8)),
+  url("https://images.unsplash.com/photo-1498050108023-c5249f4df085");
+  background-size:cover;Açaí e delícias
+Projeto demonstrativo de site para açaiteria, focado em pedidos e pagamentos via WhatsApp.
+}
+
+.hero h2{ font-size:42px; }
+.hero span{ color:#d4af37; }
+
+.hero p{
+  margin-top:15px;
+  font-size:18px;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:14px 30px;
+  background:#d4af37;
+  color:#000;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+}
+
+/* SECTIONS */
+section{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
+  margin-top:40px;
+}
+
+.card{
+  width:300px;
+  background:#1a1a1a;
+  border-radius:15px;
+  padding:20px;
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 25px #d4af37;
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.card h3{
+  color:#d4af37;
+  margin:15px 0 10px;
+}
+
+/* SKILLS */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:30px;
+}
+
+.skill{
+  background:#d4af37;
+  color:#000;
+  padding:10px 18px;
+  border-radius:20px;
+  font-weight:bold;
+}
+
+/* COMO FUNCIONA */
+.steps{
+  max-width:600px;
+  margin:40px auto 0;
+  line-height:2;
+  font-size:18px;
+}
+
+/* CTA */
+.cta{
+  background:#d4af37;
+  color:#000;
+  padding:70px 20px;
+}
+
+/* MODAL DEMO */
+.demo-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.95);
+  z-index:9999;
+  padding:20px;
+}
+
+.demo-content{
+  width:100%;
+  height:100%;
+}
+
+.demo-modal iframe{
+  width:100%;
+  height:90%;
+  border:none;
+  border-radius:12px;
+}
+
+.close-btn{
+  background:#d4af37;
+  border:gold;
+  padding:10px 20px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-bottom:10px;
+  border-radius:20px;
+}
+
+/* FOOTER */
+footer{
+  padding:20px;
+  text-align:center;
+  background:#000;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Jorge</h1>
+  <nav>
+    <a href="#projetos">Projetos</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#skills">Skills</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Sites profissionais que ajudam seu negócio a <span>vender mais</span></h2>
+  <p>Criação de sites rápidos, modernos e prontos para gerar contatos pelo WhatsApp</p>
+  <a href="#projetos" class="btn">Ver exemplos de sites</a>
+</section>
+
+<section id="projetos">
+  <h2>📂 Exemplos de Projetos</h2>
+
+  <div class="cards">
+    <div class="card">
+      <img src="https://i.pinimg.com/736x/70/06/f9/7006f900ea95b6f9a9b5ca410dd06995.jpg">
+      <h3>Pizzaria Delivery</h3>
+      <p>Projeto demonstrativo de site para pizzaria, focado em pedidos via WhatsApp.</p>
+      <button class="btn" onclick="abrirDemo('demo-pizzaria.html')">
+        Ver Demonstração
+      </button>
+    </div>
+
+      <div class="card">
+      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0">
+      <h3>Agência Digital</h3>
+      <p>Landing page demonstrativa para apresentação de serviços digitais.</p>
+      <button class="btn" onclick="abrirDemo('demo-agencia.html')">
+        Ver Demonstração 
+       </button>
+     </div>
+ 
+   <div class="cards">
+     <div class="card">
+      <img src="https://i.pinimg.com/736x/bf/54/ec/bf54ece7c131ddd71c8c7991b356df54.jpg">
+      <h3>Açaí e delícias</h3>
+      <p>Projeto demonstrativo de site para açaiteria, focado em pedidos e pagamentos via WhatsApp.</p>
+      <button class="btn" onclick="abrirDemo('demo-açai.html')">
+        Ver Demonstração
+      </button>
+    </div>
+
+ <div class="cards">
+     <div class="card">
+      <img src="https://i.pinimg.com/736x/cb/e6/d9/cbe6d9e45cc5ec1a989b697dad6a129a.jpg">
+      <h3>Barbearia prime</h3>
+      <p>Projeto demonstrativo de site para barbearia, focado em pedidos e pagamentos via WhatsApp.</p>
+      <button class="btn" onclick="abrirDemo('demo-barbearia.html')">
+        Ver Demonstração
+      </button>
+   </div>
+</section>
+
+<section id="como-funciona">
+  <h2>🛠️ Como funciona</h2>
+  <div class="steps">
+    1️⃣ Você entra em contato pelo WhatsApp<br>
+    2️⃣ Entendo seu negócio e objetivo<br>
+    3️⃣ Desenvolvo o site sob medida<br>
+    4️⃣ Entrego tudo pronto para uso
+  </div>
+</section>
+
+<section id="skills">
+  <h2>⚡ Habilidades</h2>
+  <div class="skills">
+    <div class="skill">HTML</div>
+    <div class="skill">CSS</div>
+    <div class="skill">JavaScript</div>
+    <div class="skill">Design Gráfico</div>
+    <div class="skill">UI/UX</div>
+    <div class="skill">Landing Pages</div>
+  </div>
+</section>
+
+<section class="cta" id="contato">
+  <h2>Quer um site profissional para o seu negócio?</h2>
+  <p>Fale comigo no WhatsApp e veja como seu site pode ficar</p>
+  <a class="btn" href="https://wa.me/5573981663431" target="_blank">
+    Falar no WhatsApp
+  </a>
+</section>
+
+<footer>
+  © 2026 • Portfólio Profissional
+</footer>
+
+<!-- MODAL -->
+<div id="demoModal" class="demo-modal">
+  <div class="demo-content">
+    <button class="close-btn" onclick="fecharDemo()">✖ Fechar</button>
+    <iframe id="demoFrame"></iframe>
+  </div>
+</div>
+
+<script>
+function abrirDemo(arquivo){
+  const modal = document.getElementById("demoModal");
+  const frame = document.getElementById("demoFrame");
+
+  frame.src = arquivo;
+  modal.style.display = "block";
+}
+
+function fecharDemo(){
+  const modal = document.getElementById("demoModal");
+  const frame = document.getElementById("demoFrame");
+
+  modal.style.display = "none";
+  frame.src = "";
+}
+</script>
+
+</body>
+</html>
+

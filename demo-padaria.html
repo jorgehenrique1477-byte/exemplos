@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padaria Rustik</title>
+<style>
+/* Fonte Daily Bread */
+@import url('https://fonts.googleapis.com/css2?family=Daily+Bread&display=');
+
+:root {
+  --primary: #8B5E3C;
+  --secondary: #F5DEB3;
+  --accent: linear-gradient(45deg, #FFD700, #FFA500);
+  --text-dark: #3E2C1C;
+  --bg-light: #FFF8F0;
+}
+
+body {
+  font-family: '𝐒𝐞𝐫𝐢𝐟 𝐁𝐨𝐥𝐝', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* Header com imagem rústica */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url('https://i.pinimg.com/736x/de/57/a0/de57a0d3382296e43c641cc7d82e7db5.jpg'); /* imagem rústica */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 3px solid #8B5E3C;
+}
+
+header h1.logo {
+  font-family: 'Daily Bread', cursive;
+  font-size: 2.5rem;
+  color: #c08552; /* dourado suave para destacar */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+nav a {
+  color: white;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav a:hover { text-decoration: underline; }
+
+section { padding: 2rem; }
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background-color: var(--secondary);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.card img { width: 100%; height: 150px; object-fit: cover; }
+
+.card h3 { margin: 0.5rem 0; }
+.card p { margin: 0.5rem 0; font-weight: bold; }
+
+.card button {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.card button:hover { background-color: #6e462b; }
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 0 20px 5px gold; }
+
+footer {
+  background-color: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+footer a { color: white; text-decoration: none; font-weight: bold; }
+
+#sobre {
+  background-color: #F5E6D3;
+  border-radius: 10px;
+  margin: 2rem;
+  padding: 1.5rem;
+}
+
+/* POPUP CARRINHO */
+#popup-carrinho {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  width: 350px;
+  max-width: 90%;
+  z-index: 200;
+  padding: 1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+#popup-carrinho h2 { margin-top: 0; text-align: center; }
+
+#popup-itens div.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+#popup-carrinho button {
+  margin-left: 0.3rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+}
+#popup-carrinho button:hover { background-color: #6e462b; }
+
+#popup-carrinho .acoes {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* FINALIZAR PEDIDO */
+#finalizar {
+  display: none;
+  background-color: var(--secondary);
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 10px;
+}
+#finalizar input, #finalizar select {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.3rem 0 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+#finalizar button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#finalizar button:hover { background-color: #6e462b; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="logo">Padaria Rustik</h1>
+  <nav>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section id="produtos">
+  <h2>Nossos Produtos</h2>
+  <div class="cards-container">
+
+    <!-- Produtos Originais -->
+    <div class="card" data-name="Pão de Queijo" data-price="5.90">
+      <img src="https://i.pinimg.com/1200x/b2/16/66/b2166652c0b88e53c8a2d822ee2892e2.jpg" alt="Pão de Queijo">
+      <h3>Pão de Queijo</h3>
+      <p>R$ 5,90</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Croissant" data-price="8.50">
+      <img src="https://i.pinimg.com/736x/f8/5a/47/f85a4700fb21d12f4b33f688468fa696.jpg" alt="Croissant">
+      <h3>Croissant</h3>
+      <p>R$ 8,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Bolo de Chocolate" data-price="15.00">
+      <img src="https://i.pinimg.com/736x/ac/88/34/ac8834e9f4158bba443001338e3ba485.jpg" alt="Bolo de Chocolate">
+      <h3>Bolo de Chocolate</h3>
+      <p>R$ 15,00</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Pão Integral" data-price="6.50">
+      <img src="https://i.pinimg.com/736x/69/7a/2c/697a2c1476d3791aef0868266d09e8fc.jpg" alt="Pão Integral">
+      <h3>Pão Integral</h3>
+      <p>R$ 6,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+
+    <!-- 8 Produtos Extras -->
+    <div class="card" data-name="Bolo de Cenoura" data-price="12.00">
+      <img src="https://i.pinimg.com/1200x/72/54/f8/7254f897523545557f1b78c643b12cfe.jpg" alt="Bolo de Cenoura">
+      <h3>Bolo de Cenoura</h3>
+      <p>R$ 12,00</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Pão de Forma Integral" data-price="7.50">
+      <img src="https://i.pinimg.com/736x/e1/fe/b4/e1feb42f72cc526b521cbb91bc77514a.jpg" alt="Pão de Forma Integral">
+      <h3>Pão de Forma Integral</h3>
+      <p>R$ 7,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Brigadeiro" data-price="3.50">
+      <img src="https://i.pinimg.com/736x/e0/9e/c9/e09ec9fee12f48b1d10bab1741f65939.jpg" alt="Brigadeiro">
+      <h3>Brigadeiro</h3>
+      <p>R$ 3,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Pão de Leite" data-price="4.00">
+      <img src="https://i.pinimg.com/1200x/e0/44/aa/e044aaaadbe2e16869f1cd25560abf92.jpg" alt="Pão de Leite">
+      <h3>Pão de Leite</h3>
+      <p>R$ 4,00</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Bolo de Fubá" data-price="10.00">
+      <img src="https://i.pinimg.com/1200x/d3/5b/79/d35b795d5a45a20d59106eddd26645fe.jpg" alt="Bolo de Fubá">
+      <h3>Bolo de Fubá</h3>
+      <p>R$ 10,00</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Rosquinha" data-price="2.50">
+      <img src="https://i.pinimg.com/736x/c9/d0/e1/c9d0e19d0099b1ac02efe593c3e2b0e8.jpg" alt="Rosquinha">
+      <h3>Rosquinha</h3>
+      <p>R$ 2,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Torta de Maçã" data-price="18.00">
+      <img src="https://i.pinimg.com/1200x/fe/49/18/fe4918d84a52da340f70e70c5bdfe46c.jpg" alt="Torta de Maçã">
+      <h3>Torta de Maçã</h3>
+      <p>R$ 18,00</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+    <div class="card" data-name="Pão de Chocolate" data-price="5.50">
+      <img src="https://i.pinimg.com/1200x/5b/6a/ec/5b6aeccfdc6c588b865e861c10195fb4.jpg" alt="Pão de Chocolate">
+      <h3>Pão de Chocolate</h3>
+      <p>R$ 5,50</p>
+      <button class="add-cart">Adicionar ao Carrinho</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- POPUP CARRINHO -->
+<div id="popup-carrinho">
+  <h2>Seu Carrinho</h2>
+  <div id="popup-itens"></div>
+  <p id="total-carrinho" style="text-align:right; font-weight:bold; margin-top:10px;">Total: R$ 0,00</p>
+  <div class="acoes">
+    <button id="continuar">Continuar Comprando</button>
+    <button id="finalizar-btn">Finalizar Pedido</button>
+  </div>
+</div>
+
+<section id="finalizar">
+  <h2>Finalizar Pedido</h2>
+  <form id="form-pedido">
+    <input type="text" placeholder="Nome Completo" required>
+    <input type="text" placeholder="Endereço" required>
+    <input type="tel" placeholder="Telefone" required>
+    <select required>
+      <option value="">Forma de Pagamento</option>
+      <option value="dinheiro">Dinheiro</option>
+      <option value="pix">PIX</option>
+      <option value="cartao">Cartão</option>
+    </select>
+    <button type="submit">Enviar Pedido</button>
+  </form>
+</section>
+
+<section id="sobre">
+  <h2>Sobre Nós</h2>
+  <p>Na Padaria Rustik, oferecemos pães fresquinhos, bolos caseiros e doces artesanais feitos com amor. Nosso ambiente rústico e acolhedor faz você se sentir em casa enquanto saboreia nossas delícias.</p>
+</section>
+
+<footer id="contato">
+  <p>WhatsApp: <a href="https://wa.me/5511999999999" target="_blank">+55 11 99999-9999</a></p>
+  <p>Instagram: <a href="https://instagram.com/padariarustik" target="_blank">@padariarustik</a></p>
+</footer>
+
+<script>
+const popup = document.getElementById("popup-carrinho");
+const popupItens = document.getElementById("popup-itens");
+const totalCarrinho = document.getElementById("total-carrinho");
+const botoesAdicionar = document.querySelectorAll(".add-cart");
+const continuarBtn = document.getElementById("continuar");
+const finalizarBtn = document.getElementById("finalizar-btn");
+const finalizarSection = document.getElementById("finalizar");
+
+let carrinho = [];
+
+function atualizarPopup(){
+  popupItens.innerHTML = "";
+  let total = 0;
+
+  carrinho.forEach((item,index)=>{
+    total += item.preco * item.quantidade;
+
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `<span>${item.nome} - R$ ${item.preco.toFixed(2)} x ${item.quantidade}</span>`;
+
+    const btns = document.createElement("div");
+    const mais = document.createElement("button");
+    mais.textContent = "+";
+    mais.addEventListener("click",()=>{ item.quantidade+=1; atualizarPopup(); });
+    const menos = document.createElement("button");
+    menos.textContent = "-";
+    menos.addEventListener("click",()=>{
+      item.quantidade-=1;
+      if(item.quantidade===0) carrinho.splice(index,1);
+      atualizarPopup();
+    });
+
+    btns.appendChild(mais);
+    btns.appendChild(menos);
+    div.appendChild(btns);
+    popupItens.appendChild(div);
+  });
+
+  totalCarrinho.textContent = `Total: R$ ${total.toFixed(2)}`;
+}
+
+botoesAdicionar.forEach(botao=>{
+  botao.addEventListener("click",()=>{
+    const card = botao.parentElement;
+    const nome = card.dataset.name;
+    const preco = parseFloat(card.dataset.price);
+
+    const existente = carrinho.find(item=>item.nome===nome);
+    if(existente) existente.quantidade+=1;
+    else carrinho.push({nome,preco,quantidade:1});
+    atualizarPopup();
+    popup.style.display="block";
+  });
+});
+
+continuarBtn.addEventListener("click",()=>{ popup.style.display="none"; });
+finalizarBtn.addEventListener("click",()=>{
+  popup.style.display="none";
+  finalizarSection.style.display="block";
+  finalizarSection.scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("form-pedido").addEventListener("submit", e=>{
+  e.preventDefault();
+  alert("Pedido enviado com sucesso!");
+  carrinho=[];
+  popup.style.display="none";
+  finalizarSection.style.display="none";
+});
+</script>
+</body>
+</html>
+
